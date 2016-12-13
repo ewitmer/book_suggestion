@@ -5,13 +5,11 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-let server = require('../app/app');
-
-server.close();
+let server;
 
 beforeEach(function() {
   // create the server afresh for each test in this module
-  server;
+  server = require('../app/app');;
 
 });
 
