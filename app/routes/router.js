@@ -110,7 +110,7 @@ router.post('/save', function(req, res) {
 
             });
         }
-        res.status(201).send(res);
+        res.status(201).send('ok');
     });
 
 });
