@@ -7,6 +7,8 @@ chai.use(chaiHttp);
 
 let server = require('../app/app');
 
+server.close();
+
 beforeEach(function() {
   // create the server afresh for each test in this module
   server;
