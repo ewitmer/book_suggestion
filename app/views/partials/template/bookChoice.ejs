@@ -1,0 +1,10 @@
+<form action="/choice" method="post">
+	<select name="bookChoice">
+		<option value="" disabled selected>Choose a book:</option>
+		<option value="<%= bookChoices[0] %>"><%= bookChoices[0] %></option>
+		<option value="<%= bookChoices[1] %>"><%= bookChoices[1] %></option>
+	</select>
+	<input class="btn waves-effect waves-light" type="submit" value="Next Step">
+</form>
+<br>
+<a href="/category" class="btn waves-effect waves-light">Start Over</a>

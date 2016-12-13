@@ -1,0 +1,8 @@
+<% include partials/template/head.ejs %>
+<p>Your updated recommendation is:</p>
+<%= decision %>
+<% include partials/content/choices.ejs %>
+<p>Save these to the profile for </p>
+<%= user.email %>
+<a name="<%= user.email %>" id="js-update-choices" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">thumb_up</i></a>
+	<% include partials/template/jsdefaults.ejs %>

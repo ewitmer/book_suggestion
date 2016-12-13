@@ -1,0 +1,16 @@
+<% include partials/template/head.ejs %>
+<body>
+	<div class="container">
+	<div class="row"></div>
+	<form action="/myLibrary" method="post"> 
+	<div class="row">
+        <div class="input-field col s12">
+          <input id="email" name="email" type="email" class="validate" required>
+          <label for="email">Email</label>
+        </div>
+    </div>
+    <input class="btn waves-effect waves-light" type="submit" value="Log In">
+	</form>
+	</div>
+	<% include partials/template/jsdefaults.ejs %>
+</body>
