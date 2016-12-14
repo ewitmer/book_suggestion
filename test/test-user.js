@@ -17,7 +17,6 @@ beforeEach(function(){
       firstName   : "Test",
       lastName    : "User" });
     newUser.save(function(err) {
-      done();
     });
   });
 

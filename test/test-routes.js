@@ -31,8 +31,9 @@ describe('Category', function() {
 
         res.should.have.status(200);
         res.body.should.be.a('object');
+        done();
       });
-      done();
+
   });
 
   it('should add a category on POST', function(done) {
@@ -44,8 +45,9 @@ describe('Category', function() {
       .send(categoryReq)
       .end(function(err, res) {
         res.should.have.status(200);
+        done();
       });
-      done();
+
   });
 
   it('should not add a category on POST if it is not defined in the list', function(done) {
@@ -57,8 +59,9 @@ describe('Category', function() {
       .send(categoryReq)
       .end(function(err, res) {
         res.should.have.status(404);
+        done();
       });
-      done();
+
   });
 });
 
