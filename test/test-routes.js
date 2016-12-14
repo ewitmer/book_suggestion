@@ -31,9 +31,8 @@ describe('Category', function() {
 
         res.should.have.status(200);
         res.body.should.be.a('object');
-        
-        done();
       });
+      done();
   });
 
   it('should add a category on POST', function(done) {
