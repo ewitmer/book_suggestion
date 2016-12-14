@@ -31,14 +31,14 @@ describe('Users', function() {
     done();
   });
 
-  it('should delete a user on DELETE', function(done) {
+/*  it('should delete a user on DELETE', function(done) {
   chai.request(server)
     .delete('/user/test@user.com')
     .end(function(err, res){
       res.should.have.status(201);
       done();
       });
-    });
+    }); 
 
   it('should edit a user on PUT', function(done) {
   chai.request(server)
@@ -48,7 +48,7 @@ describe('Users', function() {
       res.should.have.status(201);
       done();
       });
-    });
+    }); */
 
 });
 
