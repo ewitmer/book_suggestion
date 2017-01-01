@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	$('select').material_select();
 	$(".button-collapse").sideNav();
+  $('.parallax').parallax();
 	Materialize.updateTextFields();
 });
   	
@@ -26,10 +27,37 @@ $( "#js-update-choices" ).on( "click", function(e) {
     success: function() {
       $("#js-update-choices").removeClass("red").addClass("green");
     },
-    error: function(a,b) {
-      console.log(a);
-      console.log(b);
+    error: function(err) {
+      console.log(err);
     }
   });
+});
+
+$(document).ready(function(){
+$.ajax({ url: "database/update.html",
+        success: function(){
+           alert("done");
+        }});
+});
+
+$(document).ready(function(){
+$( ".request" ).each(function( index, element ) {
+  var googleUrl = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + element.id;
+  
+  $.ajax({
+   url: googleUrl
+  }).done(function(data) {
+  
+    var newImage = document.createElement('img');
+    newImage.className = "thumbnail"
+    newImage.src = data.items[0].volumeInfo.imageLinks.thumbnail
+    var newInfo = document.createElement('p')
+    var author = data.items[0].volumeInfo.authors[0];
+    var title = data.items[0].volumeInfo.title;
+    newInfo.append(title + " by " + author)
+    element.append(newImage)
+    element.append(newInfo)
+  });
+});
 });
 

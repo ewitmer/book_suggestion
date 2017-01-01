@@ -38,15 +38,15 @@
 const categories = ["baby", "toddler", "preschool"];
 
 const choices = [
-  [["babyA", "babyB"], ["babyC", "babyD"],["babyE", "babyF"]],
-  [["toddlerA", "toddlerB"], ["toddlerC", "toddlerD"], ["toddlerE", "toddlerF"]],
-  [["preschoolA", "preschoolB"], ["preschoolC", "preschoolD"],["preschoolE", "preschoolF"]]
+  [["0141385774", "9780805017441"], ["9780060207069", "9780547547718"],["0689841213", "0547770227"]],
+  [["1408308460", "141694737X"], ["1844285138", "0920668372"], ["0061119725", "0062305948"]],
+  [["1101631384", "0547771282"], ["0385371985", "0060254920"],["0007513771", "0062065602"]]
   ];
   
 const decisions = [
-  ["baby1", "baby2", "baby3", "baby4", "baby5", "baby6", "baby7", "baby8"],
-  ["toddler1", "toddler2", "toddler3", "toddler4", "toddler5", "toddler6", "toddler7", "toddler8"],
-  ["preschool1", "preschool2", "preschool3", "preschool4", "preschool5", "preschool6", "preschool7", "preschool8"]
+  ["0399215921", "0547349203", "0698152239", "1905417845", "0152056882", "015204907X", "0152055339", "1452136599"],
+  ["0763671630", "0064438368", "0670062405", "0763616672", "1452109818", "0061857793", "1481400932", "0375988580"],
+  ["1613125305", "0394823370", "0152062874", "0698176758", "0670013250", "1101642335", "1452154805", "0333710924"]
   ];
   
  function buildDecisionTree(choices, decisions) {

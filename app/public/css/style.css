@@ -1,0 +1,116 @@
+.hero {
+    width: 100%;
+}
+
+.parallax {
+    background-color: black;
+}
+
+.parallax img {
+    opacity: 0.7;
+}
+
+.nav-bar {
+	color: black;
+	font-size: 30px;
+	background-color: white;
+}
+
+.nav-bar > i {
+	padding-left: 95%;
+	padding-top: 10px;
+}
+
+body {
+	background-color: #F7F7F7;
+	font-family: 'Raleway'
+}
+
+label {
+	padding-left: 0px !important;
+}
+
+.parallax-container h1, .parallax-container a {
+	color: white;
+	font-family: 'Raleway', sans-serif;
+}
+
+.home-text h1 {
+	font-family: 'Josefin Slab';
+	font-weight: 700;
+	padding: .5em;
+}
+
+.home-text h3 {
+	font-family: 'Josefin Slab';
+	font-weight: 300;
+	padding: .5em;
+	padding-bottom: 1em;
+}
+
+.hero-button {
+	border-style: solid;
+	border-width: 2px;
+	border-color: white;
+	padding: 15px 40px 15px 40px;
+}
+
+.hero-button:hover {
+	background-color: white;
+	color: black;
+}
+
+.hero-link:hover {
+	font-weight: 700;
+	color: white;
+}
+
+.category-image {
+	display: inline-block;
+	width: 100%;
+}
+
+.category-image:hover {
+	background-color: rgba(143, 167, 178, 0.5);
+}
+
+.book-image {
+	display: inline-block;
+	height: 150px;
+}
+
+.book-image:hover {
+	border: 3px solid #88B04B;
+}
+
+input[type=radio]:checked + label>img {
+  border: 3px solid #88B04B;
+  background-color: rgba(143, 167, 178, 0.6);
+}
+
+
+[type="radio"]:not(:checked)+label:before, 
+[type="radio"]:not(:checked)+label:after, 
+[type="radio"]:checked+label:before, 
+[type="radio"]:checked+label:after, 
+[type="radio"].with-gap:checked+label:before, 
+[type="radio"].with-gap:checked+label:after {
+	display: none;
+
+}
+
+.thumbnail {
+	height: 100px;
+}
+
+.add-margin {
+	padding: 2em;
+}
+
+.double-space {
+	padding-bottom: 1em;
+}
+
+.dark-background {
+	background-color: #e7e7e7
+}

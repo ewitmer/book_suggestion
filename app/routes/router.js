@@ -1,6 +1,8 @@
 //change file name
+const unirest = require('unirest');
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
@@ -8,8 +10,9 @@ const jsonParser = bodyParser.json();
 const TempUser = require('../models/tempuser.js');
 const decision = require('../models/decision.js');
 const User = require('../models/user.js');
+const book =  require('../models/book.js')
 
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
 
 let tempUser;
@@ -19,15 +22,15 @@ router.get('/', function(req, res) {
 });
 
 
-router.get('/category', function(req, res) {
-    
+router.get('/category', function(req, res) {   
     res.render('categoryView');
-
 });
+
 
 router.get('/tempuser', function(req, res) { 
     res.json(tempUser.category);
 });
+
 
 router.post('/category', function(req, res) {
 	
@@ -35,16 +38,26 @@ router.post('/category', function(req, res) {
         tempUser = new TempUser(req.body.categoryName, req.body.email);
 
     	//pass into function
-        const currentChoice = decision.getNextChoice(tempUser);
+        var currentChoice = decision.getNextChoice(tempUser);
+        
+        function getAllData() {
+            return Promise.resolve().then (function(){
+                return book.getBookData(currentChoice);  
+             }).then(function(data){
+                res.status(200).render('choiceView', {
+                    user: tempUser,
+                    bookChoices: currentChoice,
+                    bookData: data
+                });
+            })
+         }
 
-        res.status(200).render('choiceView', {
-    	  	user: tempUser,
-    	  	bookChoices: currentChoice
-    	});
+        getAllData();
+        
 
     } else {
 
-        res.status(404).send('Please select a valid category');
+        res.status(404).send('Please select a valid category!');
     
     }
 });
@@ -58,20 +71,41 @@ router.get('/login', function(req, res) {
 });
 
 
-router.post('/choice', function(req, res) {
-	
-    choiceIndex = decision.getChoiceIndex(tempUser, req.body.bookChoice);
+router.get('/testApi', function(req, res) {
 
-    tempUser.addLike(req.body.bookChoice, choiceIndex);
+    res.sendFile(path.join(__dirname, '../public', 'thanks.html'));
+    
+    
+   
+});
+
+
+
+
+router.post('/choice', function(req, res) {
+
+
+    choiceIndex = decision.getChoiceIndex(tempUser, req.body.bookChoice.toString());
+
+    tempUser.addLike(req.body.bookChoice.toString(), choiceIndex);
 
 	if (tempUser.bookLikes.length < 3) {
 
-		let currentChoice = decision.getNextChoice(tempUser);
+		var currentChoice = decision.getNextChoice(tempUser);
+        
+        function getAllData() {
+            return Promise.resolve().then (function(){
+                return book.getBookData(currentChoice);  
+             }).then(function(data){
+                res.status(200).render('choiceView', {
+                    user: tempUser,
+                    bookChoices: currentChoice,
+                    bookData: data 
+                }); 
+            })
+         }
 
-		res.render('choiceView', {
-	  		user: tempUser,
-	  		bookChoices: currentChoice
-	 	});
+        getAllData();
 
 	}
 
@@ -94,6 +128,8 @@ router.post('/choice', function(req, res) {
 
 })
 
+
+
 router.post('/save', function(req, res) {
 
 	User.create({
@@ -104,14 +140,17 @@ router.post('/save', function(req, res) {
     	lastName		: req.body.lastName
     }, function(err, item) {
         if (err) {
+            console.log(err)
             return res.status(500).json({
                 message: 'Internal Server Error',
                 error: err
 
             });
         }
-        res.status(201).send('ok');
-    });
+        res.status(201).sendFile(path.join(__dirname, '../public', 'thanks.html'));
+
+    }); 
+
 
 });
 
@@ -126,7 +165,7 @@ router.post('/myLibrary', function(req, res) {
             });
         }
         res.status(201).render('myLibrary', {
-	  		user: user,
+	  		user: user
 	 	});
     })
 

@@ -1,9 +1,26 @@
 <form action="/category" method="post">
-	<select name="categoryName" id="test">
-		<option value="" disabled selected>Choose a category:</option>
-  		<option value="baby" data-icon="images/baby.png" class="right">Baby</option>
-  		<option value="toddler" data-icon="images/toddler.png" class="right">Toddler</option>
-  		<option value="preschool" data-icon="images/preschool.png" class="right">Preschool</option>
-	</select>
-	<input class="btn waves-effect waves-light" type="submit" value="Next Step">
+	<div class="row">
+	    <div class="col s12 m4 center-align">
+	      <input type="radio" name="categoryName" value= "baby" id="baby" class="selection"/>
+			<label for="baby">Baby
+				<img src="/images/baby.png" alt="baby" class="category-image" />
+			</label>
+	    </div>
+	    <div class="col s12 m4 center-align">
+	      <input type="radio" name="categoryName" value= "toddler" id="toddler" class="selection"/>
+			<label for="toddler">Toddler
+				<img src="/images/toddler.png" alt="baby" class="category-image" />
+			</label>
+	    </div>
+	    <div class="col s12 m4 center-align">
+	      <input type="radio" name="categoryName" value="preschool" id="preschool" class="selection"/>
+			<label for="preschool" class="selection">Preschooler
+				<img src="/images/preschool.png" alt="preschool" class="category-image" />
+			</label>
+	    </div>
+    </div>
+    <div class="row add-margin">
+    	<input class="btn waves-effect waves-light" type="submit" value="Next Step">
+    </div>
 </form>
+

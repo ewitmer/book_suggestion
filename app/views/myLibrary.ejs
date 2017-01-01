@@ -1,17 +1,18 @@
 <% include partials/template/head.ejs %>
 <body>
 	<div class="container">
+	<% user.bookLikes %>
 
     <% include partials/content/choices.ejs %>
 
-	<p>You are logged in as <%= user.email %></p>
-
-	<a name="<%= user.email %>" id="js-delete-user" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a>
-
 	<div>
-		<p>Change options</p>	
+		<p>Start over to update your preferences:</p>	
 		<% include partials/template/categoryChange.ejs %>
 	</div>
+	<p>You are logged in as <%= user.email %></p>
+
+	<p>Click to delete your account:   <a name="<%= user.email %>" id="js-delete-user" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a></p>
+
 	</div>
 	<% include partials/template/jsdefaults.ejs %>
 </body>

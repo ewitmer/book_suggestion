@@ -1,11 +1,15 @@
 <% include partials/template/head.ejs %>
+<% include partials/template/header.ejs %>
 <body>
 	<div class="container">
 
-	<%= decision %>
-
 	<% include partials/content/choices.ejs %>
+	<% include partials/content/decision.ejs %>
+	
 
+	<br>
+	<h4>Want more recommendations? Save your choices!</h4>
+	<br>
 	<form action="/save" method="post"> 
 		<div class="row">
 	    <form class="col s12">

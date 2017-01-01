@@ -1,12 +1,28 @@
 <% include partials/template/head.ejs %>
 <body>
-	<div class="container">
-	<img class="center" src="/images/stackedBlue.png" style="height: 100px;">
-	<h3 class="">Welcome to the Club!</h3>
-		<div class="row">
-			<div class="col s12 m6 center"><a class="waves-effect waves-light btn-large" href="/category">Try it</a></div>
-			<div class="col s12 m6 center"><a class="waves-effect waves-light btn-large" href="/login">Log in</a></div>
+	<div id="index-banner" class="parallax-container valign-wrapper">
+		<div class="container">
+			<div class="row">
+				<h1 class="center">Open a book, open a mind.</h1>
+			</div>
+			<div class="row">
+				<div class="col s12 center"><a class="hero-button" href="/category">Find a book</a></div>
+			</div>
+			<div>
+				<div class="col s12 center"><a class="hero-link" href="/login">Or log in</a></div>
+			</div>
 		</div>
+		<div class="parallax"><img src="/images/hero.jpg" alt="background image" class='hero'></div>
+	</div>
+	<div class="container home-text">
+		<h1>Discover new books for your baby, toddler or preschooler.</h1>
+		<h3>Pick from a few books you might know, and we'll suggest one you might not.</h1>
+	</div>
+	<div id="index-banner" class="parallax-container valign-wrapper">
+	<div class="row">
+				<div class="col s12 center"><a class="hero-button" href="/category">Find a book</a></div>
+			</div>
+		<div class="parallax"><img src="/images/books.jpg" alt="background image" class='hero'></div>
 	</div>
 	<% include partials/template/jsdefaults.ejs %>
 </body>

@@ -1,13 +1,32 @@
-var mongoose = require('mongoose');
+var unirest = require('unirest');
+var express = require('express');
 
-var BookSchema = new mongoose.Schema({
-    isbn		: Number,
-    title		: String,
-    author		: String
-    description	: String,
-    cover		: String
-});
 
-var Book = mongoose.model('Book', BookSchema);
+function getApiData(isbn) {
 
-module.exports = Book;
+  return new Promise(function(resolve, reject) {  
+
+    unirest.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
+           .end(function(response) {
+                if (response.ok) {
+                    resolve(response.body);
+                }
+                else {
+                    reject(Error(response.code));
+                }
+            });
+    });
+
+};
+
+
+function getBookData(isbnArray) {
+	
+	return Promise.all(isbnArray.map(function(isbn){
+		return getApiData(isbn);
+	}))
+};
+
+
+
+module.exports = {getBookData, getApiData};

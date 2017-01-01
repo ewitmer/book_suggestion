@@ -30,6 +30,8 @@ describe('Users', function() {
       });
     done();
     }); 
+  
+  //add test to make sure the user gets deleted.
 
   it('should edit a user on PUT', function(done) {
   chai.request(server)
