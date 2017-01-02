@@ -71,15 +71,6 @@ router.get('/login', function(req, res) {
 });
 
 
-router.get('/testApi', function(req, res) {
-
-    res.sendFile(path.join(__dirname, '../public', 'thanks.html'));
-    
-    
-   
-});
-
-
 
 
 router.post('/choice', function(req, res) {
