@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
-var app = express();
+const app = express();
 
 app.set('port', process.env.PORT || 3000 );
 app.set('view engine', 'ejs');
@@ -15,7 +15,7 @@ app.use(bodyParser());
 app.use(require('./routes/router'));
 
 
-var server = app.listen(app.get('port'), function() {
+const server = app.listen(app.get('port'), () => {
   console.log('Listening on port ' + app.get('port'));
 });
 

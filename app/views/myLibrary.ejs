@@ -1,13 +1,10 @@
 <% include partials/template/head.ejs %>
 <% include partials/template/header.ejs %>
 <% include partials/content/loggedIn.ejs %>
-
 <body>
 	<div class="container">
-
     <% include partials/content/choices.ejs %>
     <% include partials/content/recommendations.ejs %>
-
     <ul class="collapsible" data-collapsible="accordion">
 		<li>
 			<div class="collapsible-header"><i class="material-icons">mode_edit</i>Click to change your preferences</div>
@@ -17,9 +14,6 @@
 				</div>
 		</li>
 	</ul>
-
-	
-
 	<p><a name="<%= user.email %>" id="js-delete-user" class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">delete</i></a><span>   </span>Click to delete your account</p>
 
 	</div>

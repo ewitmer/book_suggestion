@@ -1,70 +1,70 @@
-//change file name
+/**
+  * The router contains all of the routing logic for the application.
+  * See specific routes for more detail.
+*/
+
 const unirest = require('unirest');
 const express = require('express');
 const router = express.Router();
 const path = require('path');
-
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
-
+const mongoose = require('mongoose');
 const TempUser = require('../models/tempuser.js');
 const decision = require('../models/decision.js');
 const User = require('../models/user.js');
 const book =  require('../models/book.js')
 
-const mongoose = require('mongoose');
-
-
+// creating a variable in memory for when the instance is created
 let tempUser;
 
-router.get('/', function(req, res) {
+router.get('/', (req, res) => {
     res.status(200).render('index');
 });
 
 
-router.get('/category', function(req, res) {   
+router.get('/category', (req, res) => {   
     res.render('categoryView');
 });
 
-
-router.get('/tempuser', function(req, res) { 
-    res.json(tempUser.category);
-});
-
-
-router.post('/category', function(req, res) {
+router.post('/category', (req, res) => {
 	
+    // when a user selects a category (baby, etc.) a new tempUser instance is created
     if ( decision.categories.includes(req.body.categoryName) ) {
         tempUser = new TempUser(req.body.categoryName, req.body.email);
 
-    	//pass into function
-        var currentChoice = decision.getNextChoice(tempUser);
+    	/* the set book choices the user is shown are retrieved based on the user category
+         * preference (baby etc.), and how many books they have already selected.
+        */
+        let currentChoice = decision.getNextChoice(tempUser);
         
-        function getAllData() {
-            return Promise.resolve().then (function(){
+        /* once the next book choices have been retrieved, this anonymous function runs
+         * and returns the array of API based on the book selections to be shown
+         * the book data is passed into the view template and populates the front end
+        */ 
+        (() => {
+            return Promise.resolve().then (() => {
                 return book.getBookData(currentChoice);  
-             }).then(function(data){
+             }).then((data) => {
                 res.status(200).render('choiceView', {
                     user: tempUser,
                     bookChoices: currentChoice,
-                    bookData: data
-                });
+                    bookData: data 
+                }); 
             })
-         }
-
-        getAllData();
+        })();
         
-
+    // this is only if a user selects an invalid category, radio buttons should prevent this
     } else {
 
-        res.status(404).send('Please select a valid category!');
+        res.status(404).sendFile(path.join(__dirname, '../public', '404.html'));
     
     }
 });
 
 
 
-router.get('/login', function(req, res) {
+router.get('/login', (req, res) => {
 
 	res.render('login');
 
@@ -73,35 +73,46 @@ router.get('/login', function(req, res) {
 
 
 
-router.post('/choice', function(req, res) {
+router.post('/choice', (req, res) => {
 
-
+    /* the current index position is used to ensure that if a user hits the 
+     * back button on the browser, and is shown the same choice again, that choice
+     * overwrites the current selection, rather than saving it at the next position 
+     * in the array. The decision tree would not work properly if that were the case.
+    */ 
     choiceIndex = decision.getChoiceIndex(tempUser, req.body.bookChoice.toString());
 
+    // pushes the current selection to the array in the correct position (choiceIndex)
     tempUser.addLike(req.body.bookChoice.toString(), choiceIndex);
 
 	if (tempUser.bookLikes.length < 3) {
 
-		var currentChoice = decision.getNextChoice(tempUser);
+		let currentChoice = decision.getNextChoice(tempUser);
         
-        function getAllData() {
-            return Promise.resolve().then (function(){
+        /* once the next book choices have been retrieved, this anonymous function runs
+         * and returns the array of API based on the book selections to be shown
+         * the book data is passed into the view template and populates the front end
+        */ 
+        (() => {
+            return Promise.resolve().then (() => {
                 return book.getBookData(currentChoice);  
-             }).then(function(data){
+             }).then((data) => {
                 res.status(200).render('choiceView', {
                     user: tempUser,
                     bookChoices: currentChoice,
                     bookData: data 
                 }); 
             })
-         }
-
-        getAllData();
+        })();
 
 	}
 
 	else if (tempUser.bookLikes.length === 3) {
 		
+        /* once the user has selected three valid choices, a recommendation is generated
+         * based on the decision tree function
+         * this recommendation is saved to the tempUser profile.
+        */
 		let computedDecision = decision.getDecision(tempUser.bookLikes);
 
         tempUser.addRec(computedDecision);
@@ -117,13 +128,13 @@ router.post('/choice', function(req, res) {
 				decision: computedDecision
 			})
 		}
-}
+    }
 
-})
+});
 
 
-
-router.post('/save', function(req, res) {
+// Collects name and email information from the front end, saves with tempUser info to MongoDB
+router.post('/save', (req, res) => {
 
 	User.create({
         category        : tempUser.category,
@@ -132,14 +143,14 @@ router.post('/save', function(req, res) {
     	email           : req.body.email,
     	firstName		: req.body.firstName,
     	lastName		: req.body.lastName
-    }, function(err, item) {
+    }, (err, item) => {
         if (err) {
             if (err.name === 'MongoError' && err.code === 11000) {
-             // Duplicate username
+             // Duplicate username error
             return res.status(500).sendFile(path.join(__dirname, '../public', 'user.html'));
             }
 
-            //    Some other error
+            // Any other error
             return res.status(500).send(err);
         }
         res.status(201).sendFile(path.join(__dirname, '../public', 'thanks.html'));
@@ -149,11 +160,12 @@ router.post('/save', function(req, res) {
 
 });
 
-router.post('/myLibrary', function(req, res) {
+// Login logic that retrieves a user document based on provided email
+router.post('/myLibrary', (req, res) => {
 
 	User.findOne({
         email: req.body.email
-    }, function(err, user) {
+    }, (err, user) => {
         if (err || !user) {
             return res.status(500).json({
                 message: 'Internal Server Error'
@@ -166,13 +178,14 @@ router.post('/myLibrary', function(req, res) {
 
 });
 
-router.put('/user/:email', function(req, res) {
+// Updates user preferences if they go through the process while logged in
+router.put('/user/:email', (req, res) => {
 
 	User.findOneAndUpdate(
 		{email: req.params.email},
   		{$set: {category: tempUser.category,
   				bookLikes: tempUser.bookLikes}}
-		, function(err, item) {
+		, (err, item) => {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error',
@@ -185,11 +198,12 @@ router.put('/user/:email', function(req, res) {
     res.status(201).render('login');
 });
 
-router.delete('/user/:email', function(req, res) {
+// Deletes user record from the database
+router.delete('/user/:email', (req, res) => {
 
     User.findOneAndRemove({
         email: req.params.email
-    }, function(err, user) {
+    }, (err, user) => {
         if (err) {
             return res.status(500).json({
                 message: 'Internal Server Error',
@@ -201,5 +215,10 @@ router.delete('/user/:email', function(req, res) {
 
     });
 });
+
+// Renders 404 error for all other routes
+router.get('*', (req, res) => {
+    res.status(404).sendFile(path.join(__dirname, '../public', '404.html'));
+})
 
 module.exports = router;

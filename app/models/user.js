@@ -1,6 +1,11 @@
-var mongoose = require('mongoose');
+/**
+  * The preferences from the TempUser instance are saved to the database when a user signs up
+  * Email is validated so there is only one record per valid email address.
+*/
 
-var UserSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+
+const UserSchema = new mongoose.Schema({
     category        : String,
     bookLikes       : [String],
     bookRecs       : [String],
@@ -12,7 +17,7 @@ var UserSchema = new mongoose.Schema({
         unique: true,
         required: [true, 'User email required'],
         validate: {
-         	validator: function(v) {
+         	validator: (v) => {
             	return /.+\@.+\..+/.test(v);
          	},
           	message: '{VALUE} is not a valid email'
@@ -24,6 +29,6 @@ var UserSchema = new mongoose.Schema({
 
 });
 
-var User = mongoose.model('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User; 
