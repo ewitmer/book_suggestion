@@ -1,1 +1,0 @@
-var database = "mongodb://admin:admin123@ds119768.mlab.com:19768/primarybookclub"

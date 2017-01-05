@@ -104,6 +104,8 @@ router.post('/choice', function(req, res) {
 		
 		let computedDecision = decision.getDecision(tempUser.bookLikes);
 
+        tempUser.addRec(computedDecision);
+
 		if (tempUser.email === undefined) {
 		res.render('recommendView', {
 	  		user: tempUser,
@@ -126,17 +128,19 @@ router.post('/save', function(req, res) {
 	User.create({
         category        : tempUser.category,
     	bookLikes       : tempUser.bookLikes,
+        bookRecs        : tempUser.bookRecs,
     	email           : req.body.email,
     	firstName		: req.body.firstName,
     	lastName		: req.body.lastName
     }, function(err, item) {
         if (err) {
-            console.log(err)
-            return res.status(500).json({
-                message: 'Internal Server Error',
-                error: err
+            if (err.name === 'MongoError' && err.code === 11000) {
+             // Duplicate username
+            return res.status(500).sendFile(path.join(__dirname, '../public', 'user.html'));
+            }
 
-            });
+            //    Some other error
+            return res.status(500).send(err);
         }
         res.status(201).sendFile(path.join(__dirname, '../public', 'thanks.html'));
 
@@ -163,7 +167,7 @@ router.post('/myLibrary', function(req, res) {
 });
 
 router.put('/user/:email', function(req, res) {
-	console.log(req.params.email);
+
 	User.findOneAndUpdate(
 		{email: req.params.email},
   		{$set: {category: tempUser.category,

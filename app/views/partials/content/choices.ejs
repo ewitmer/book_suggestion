@@ -1,13 +1,11 @@
-<div class="container row">
-	<br>
-	<h5>Your selections:</h5>
-	<br>
+
 <div class="row">
 	<% if (user.bookLikes.length > 0) { %>
+		<h3 class="add-margin-2 center-align">Your selections:</h3>
 		<% for (i=0; i< user.bookLikes.length; i++) { %>
 			<div class="col s12 m4 request center-align" id="<%= user.bookLikes[i] %>"></div>
 		<% } %>
 	<% } %>
 </div>
-</div>
+
 

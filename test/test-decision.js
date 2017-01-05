@@ -72,7 +72,7 @@ describe('decision', function() {
         decision.getDecision(["0141385774", "9780060207069", "0689841213"]).should.equal("0399215921");
         decision.getDecision(["9780805017441", "9780060207069", "0689841213"]).should.equal("0152056882");
         decision.getDecision(["0141385774", "9780547547718", "0547770227"]).should.equal("1905417845");
-        decision.getDecision(["9781841215655", "0920668372", "0061119725"]).should.equal("0670062405");
+        decision.getDecision(["9781841215655", "0920668372", "0061119725"]).should.equal("1101647507");
         decision.getDecision(["141694737X", "0920668372", "0062305948"]).should.equal("0375988580");
         decision.getDecision(["9781841215655", "1844285138", "0061119725"]).should.equal("0763671630");
         decision.getDecision(["1101631384", "0385371985", "0007513771"]).should.equal("1613125305");

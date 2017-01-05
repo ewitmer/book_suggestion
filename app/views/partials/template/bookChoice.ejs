@@ -1,18 +1,18 @@
 <form action="/choice" method="post">
 	<div class="row">
-	    <div class="col s12 m6 center-align">
+	    <div class="col s12 m6 center-align selection-hover">
 	      <input type="radio" name="bookChoice" value= "<%= bookChoices[0] %>" id="<%= bookChoices[0] %>" checked="checked"/>
 			<label for="<%= bookChoices[0] %>">
 				<img src="<%= bookData[0].items[0].volumeInfo.imageLinks.thumbnail %>" alt="book1" class="book-image" />
-				<p><%= bookData[0].items[0].volumeInfo.title %> by <%= bookData[0].items[0].volumeInfo.authors[0] %></p>
+				<p class="fw-700"><%= bookData[0].items[0].volumeInfo.title %> by <%= bookData[0].items[0].volumeInfo.authors[0] %></p>
 				<p><%= bookData[0].items[0].volumeInfo.description %></p>
 			</label>
 	    </div>
-	    <div class="col s12 m6 center-align">
+	    <div class="col s12 m6 center-align selection-hover">
 	      <input type="radio" name="bookChoice" value= "<%= bookChoices[1] %>" id="<%= bookChoices[1] %>" />
 			<label for="<%= bookChoices[1] %>">
 				<img src="<%= bookData[1].items[0].volumeInfo.imageLinks.thumbnail %>" alt="book2" class="book-image" />
-				<p><%= bookData[1].items[0].volumeInfo.title %> by <%= bookData[1].items[0].volumeInfo.authors[0] %></p>
+				<p class="fw-700"><%= bookData[1].items[0].volumeInfo.title %> by <%= bookData[1].items[0].volumeInfo.authors[0] %></p>
 				<p><%= bookData[1].items[0].volumeInfo.description %></p>
 			</label>
 	    </div>

@@ -1,14 +1,13 @@
 <% include partials/template/head.ejs %>
 <% include partials/template/header.ejs %>
+<% include partials/content/loggedIn.ejs %>
 <body>
-
-
 	<div class="container">
-    	<h4 class="double-space">Which book would your <%= user.category %> like better?</h4>
+    	<h3 class="double-space center-align">Which book would your <%= user.category %> like better?</h3>
     	<% include partials/template/bookChoice.ejs %>
-	</div>
-	<div class="dark-background">
-		<% include partials/content/choices.ejs %>
+		<div class="dark-background">
+			<% include partials/content/choices.ejs %>
+		</div>
 	</div>
 	<% include partials/template/jsdefaults.ejs %>
 </body>

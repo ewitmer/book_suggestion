@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var UserSchema = new mongoose.Schema({
     category        : String,
     bookLikes       : [String],
+    bookRecs       : [String],
     
 	email: {
         type: String,

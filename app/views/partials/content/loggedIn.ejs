@@ -1,0 +1,8 @@
+<div class="row logged-in">
+	<% console.log(user.email) %>
+	<% if (user.email === undefined) { %>
+		<a href="/login" class="hero-link">You are not logged in.</a>
+		<% } else { %>
+		<a class="hero-link"> You are logged in as: <%= user.email %> </a>
+	<% } %>
+</div>
